@@ -67,3 +67,10 @@ form input[type="submit"]:hover, form input[type="reset"]:hover {
 .hidden {
     display: none;
 }
+
+a {
+    color: #1787cc;
+    text-decoration: none
+    margin: 50px;
+    display: block;
+}

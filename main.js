@@ -109,11 +109,22 @@ function removeNote(id) {
 
 function renderNotes(notes) {
     var listHtml = ''
+    updateExportButton(notes)
     for (let note of notes.reverse()) {
         var switcher = switcher=='odd'?'even':'odd'
         listHtml += `<div id="note${note.id}" class="flex note ${switcher}" onclick=removeNote(${note.id})><div class="note-date">${note.date}</div><div class="note-value">R$${note.value}</div><div class="note-descr">${note.description}</div></div>`
     }
     document.getElementById('notesList').innerHTML = listHtml
+}
+
+function updateExportButton(notes) {
+    var link = document.getElementById('exporter')
+    window.n = notes
+    var content = 'date,description,value\n'
+    for (let note of notes) {
+        content += `${note.date},${note.description},${note.value}\n`
+    }
+    link.href = window.URL.createObjectURL(new Blob([content], {type: 'text/csv'}))
 }
 
 function interceptSubmit() {
@@ -134,3 +145,6 @@ function interceptSubmit() {
 function showNotes() {
     getAllObjs('notes').then(renderNotes)
 }
+
+
+
